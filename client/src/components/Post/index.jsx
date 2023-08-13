@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import React from "react";
 import Image from "./Image.png";
 import { ArrowRightAltSharp } from "@mui/icons-material";
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 const Post = ({ isMobile, size }) => {
   const theme = useTheme();
   return (
@@ -90,13 +90,50 @@ const Post = ({ isMobile, size }) => {
           sx={{
             display: "flex",
             flexDirection: "row",
-            gap: "0.5vh",
+            gap: "0.7vh",
+            flexWrap: "wrap",
           }}
         >
           {/* some random color picker or backend color asigning */}
-          <Box>tag</Box>
-          <Box>tag</Box>
-          <Box>tag</Box>
+          <Box
+            sx={{
+              fontSize: "1.4vh",
+              fontWeight:"600",
+              color: "green",
+              backgroundColor: "white",
+              opacity: "0.75",
+              padding: "0 1vh",
+              borderRadius: "12px",
+            }}
+          >
+            programming
+          </Box>
+          <Box
+            sx={{
+              fontSize: "1.4vh",
+              fontWeight:"600",
+              color: "green",
+              backgroundColor: "white",
+              opacity: "0.75",
+              padding: "0 1vh",
+              borderRadius: "12px",
+            }}
+          >
+            programming
+          </Box>
+          <Box
+            sx={{
+              fontSize: "1.4vh",
+              fontWeight:"600",
+              color: "green",
+              backgroundColor: "white",
+              opacity: "0.75",
+              padding: "0 1vh",
+              borderRadius: "12px",
+            }}
+          >
+            programming
+          </Box>
         </Box>
       </Box>
     </Box>
