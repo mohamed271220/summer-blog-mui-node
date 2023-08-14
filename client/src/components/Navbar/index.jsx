@@ -30,7 +30,7 @@ import NavLinks from "../Nav-Links";
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
-  const [active, setActive] = useState("blog");
+  const [active, setActive] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
   const handleClick = (e) => setAnchorEl(e.currentTarget);

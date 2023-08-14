@@ -21,11 +21,13 @@ const Post = ({ isMobile, size }) => {
         style={{
           width:
             size === "medium"
-              ? "90vh"
+              ? "95vh"
               : size === "small"
               ? "40vh"
               : size === "large"
               ? "80vh"
+              : size === "large-X"
+              ? "156vh"
               : size === "mobile"
               ? "50vh"
               : "100px",
@@ -36,6 +38,8 @@ const Post = ({ isMobile, size }) => {
               ? "26vh"
               : size === "large"
               ? "30vh"
+              : size === "large-X"
+              ? "50vh"
               : size === "mobile"
               ? "40vh"
               : "100px",

@@ -11,8 +11,8 @@ import Post from "../../components/Post/index";
 import Hero from "../../components/Hero";
 const Blog = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery("(max-width:600px)");
-  const isTablet = useMediaQuery("(max-width:900px)");
+  const isMobile = useMediaQuery("(max-width:912px)");
+  const isTablet = useMediaQuery("(max-width:1000px)");
   return (
     <Box
       sx={{
@@ -30,7 +30,7 @@ const Blog = () => {
           alignItems: isTablet && "center",
           justifyContent: isTablet && "center",
           width: "90%",
-          gap: "1rem",
+          gap: "1.5vh",
           margin: "1rem 0 ",
         }}
       >
@@ -51,7 +51,7 @@ const Blog = () => {
               alignItems: "center",
               justifyContent: "center",
               width: "90%",
-              gap: "1rem",
+              gap: "3vh",
             }}
           >
             <Post isMobile size={"mobile"} />
@@ -66,7 +66,7 @@ const Blog = () => {
               alignItems: "center",
               justifyContent: "center",
               width: "90%",
-              gap: "1rem",
+              gap: "1.5vh",
             }}
           >
             <Post size={"large"} />
@@ -80,7 +80,7 @@ const Blog = () => {
               flexDirection: "row",
               flexWrap: "wrap",
               width: "100%",
-              gap: "1rem",
+              gap: "1.5vh",
               alignItems: "flex-start",
               justifyContent: "flex-start",
             }}
@@ -88,7 +88,7 @@ const Blog = () => {
             <Post
               size={"medium"}
               sx={{
-                width: "75vh",
+                width: "90vh",
                 // flex: 6,
               }}
             />
@@ -97,7 +97,7 @@ const Blog = () => {
                 display: "flex",
                 flexDirection: "column",
                 flex: 3,
-                gap: "1rem",
+                gap: "3vh",
               }}
             >
               <Post size={"small"} />
@@ -114,7 +114,7 @@ const Blog = () => {
           alignItems: isTablet && "center",
           justifyContent: isTablet && "center",
           width: "90%",
-          gap: "1rem",
+          gap: "1.5vh",
         }}
       >
         <Typography
@@ -131,7 +131,7 @@ const Blog = () => {
             flexDirection: "row",
             flexWrap: "wrap",
             width: "100%",
-            gap: "2.5rem",
+            gap: "3vh",
             alignItems: "flex-start",
             justifyContent: "flex-start",
             alignItems: isTablet && "center",

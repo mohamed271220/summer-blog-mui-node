@@ -2,8 +2,8 @@ import React from "react";
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 const Hero = ({ text }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery("(max-width:600px)");
-  const isTablet = useMediaQuery("(max-width:900px)");
+  const isMobile = useMediaQuery("(max-width:912px)");
+  const isTablet = useMediaQuery("(max-width:1200px)");
   return (
     <Typography
       variant="h1"

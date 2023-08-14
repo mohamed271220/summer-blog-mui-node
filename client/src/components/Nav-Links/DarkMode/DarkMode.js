@@ -14,8 +14,8 @@ const DarkMode = ({ onClick }) => {
         onClick={onClick}
       />
       <label className="dark_mode_label" for="darkmode-toggle">
-        <Sun />
         <Moon />
+        <Sun />
       </label>
     </div>
   );
