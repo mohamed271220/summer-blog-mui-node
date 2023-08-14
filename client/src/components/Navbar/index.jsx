@@ -44,6 +44,8 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         position: "static",
         background: "none",
         boxShadow: "none",
+        margin: "0 auto",
+        width: "90%",
       }}
     >
       <Toolbar

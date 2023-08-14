@@ -7,6 +7,7 @@ import Blog from "./scenes/Blog";
 import Layout from "./scenes/Layout";
 import Projects from "./scenes/Projects";
 import About from "./scenes/About";
+import NewsForm from "./scenes/Newsletter";
 function App() {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/newsletter" element={<NewsForm />} />
               </Route>
             </Routes>
           </Suspense>
