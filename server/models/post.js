@@ -20,15 +20,6 @@ const postSchema = mongoose.Schema(
     ],
     sections: [
       {
-  
-        title: {
-          type: String,
-          required: true,
-        },
-        paragraph: {
-          type: String,
-          required: true,
-        },
       },
     ],
   },

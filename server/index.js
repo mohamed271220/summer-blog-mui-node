@@ -44,13 +44,15 @@ app.post("/api/posts", upload.single("image"), async (req, res) => {
   // ...
   const { title, description, image, tags, sections } = req.body;
 
+  const sectionsParsed = JSON.parse(sections);
+
   try {
     const post = new Post({
       title,
       description,
       image,
       tags,
-      sections,
+      sections: sectionsParsed,
     });
     await post.save();
     res.status(201).json({ post });
@@ -79,7 +81,7 @@ app.use((error, req, res, next) => {
 });
 
 //Mongoose
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT;
 mongoose
   .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,

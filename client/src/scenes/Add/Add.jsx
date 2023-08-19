@@ -52,9 +52,12 @@ const FormPage = () => {
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
+ formData.append("title", values.title);
+    formData.append("description", values.description);
+    
+    formData.append("tags", values.tags.join(","));
+    formData.append("sections", JSON.stringify(values.sections));
+
     formData.append("image", values.image.name);
     try {
       const savedUserResponse = await fetch("http://localhost:3001/api/posts", {
