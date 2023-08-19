@@ -26,24 +26,7 @@ router.get("/posts/:id", async (req, res) => {
   }
 });
 
-router.post("/posts", async (req, res) => {
-  // ...
-  const { title, description, image, tags, sections } = req.body;
 
-  try {
-    const post = new Post({
-      title,
-      description,
-      image,
-      tags,
-      sections,
-    });
-    await post.save();
-    res.status(201).json({ post });
-  } catch (err) {
-    res.status(401).json({ message: err });
-  }
-});
 router.put("/posts/:id", async (req, res) => {
   // ...
 });

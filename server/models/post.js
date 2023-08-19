@@ -20,10 +20,7 @@ const postSchema = mongoose.Schema(
     ],
     sections: [
       {
-        image: {
-          type: String,
-          // required:true
-        },
+  
         title: {
           type: String,
           required: true,

@@ -8,6 +8,7 @@ import Layout from "./scenes/Layout";
 import Projects from "./scenes/Projects";
 import About from "./scenes/About";
 import NewsForm from "./scenes/Newsletter";
+import Add from "./scenes/Add/Add";
 function App() {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/newsletter" element={<NewsForm />} />
+                <Route path="/addPost" element={<Add />} />
               </Route>
             </Routes>
           </Suspense>

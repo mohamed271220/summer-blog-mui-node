@@ -9,18 +9,10 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import path from "path";
-// const express = require("express");
-// const bodyParser = require("body-parser");
-// const mongoose = require("mongoose");
-// const cors = require("cors");
-// const dotenv = require("dotenv");
-// const multer = require("multer");
-// const helmet = require("helmet");
-// const morgan = require("morgan");
-// const path = require("path");
-// const fileURLToPath = require("url").fileURLToPath;
+
 import mainRoute from "./routes/main.js";
 import { fileURLToPath } from "url";
+import Post from "./models/post.js";
 
 /* CONFIG */
 const __filename = fileURLToPath(import.meta.url);
@@ -48,6 +40,25 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+app.post("/api/posts", upload.single("image"), async (req, res) => {
+  // ...
+  const { title, description, image, tags, sections } = req.body;
+
+  try {
+    const post = new Post({
+      title,
+      description,
+      image,
+      tags,
+      sections,
+    });
+    await post.save();
+    res.status(201).json({ post });
+  } catch (err) {
+    res.status(401).json({ message: err });
+  }
+});
+
 app.use("/api", mainRoute);
 
 app.use((error, req, res, next) => {
@@ -68,7 +79,7 @@ app.use((error, req, res, next) => {
 });
 
 //Mongoose
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT ;
 mongoose
   .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,
