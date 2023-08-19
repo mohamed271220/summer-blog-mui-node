@@ -25,7 +25,8 @@ app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-app.use("/assets", express.static(path.join(__dirname, "assets")));
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+
 
 /* File storage */
 
@@ -42,7 +43,7 @@ const upload = multer({ storage: storage });
 
 app.post("/api/posts", upload.single("image"), async (req, res) => {
   // ...
-  const { title, description, image, tags, sections } = req.body;
+  const { title, description, imagePath, tags, sections } = req.body;
 
   const sectionsParsed = JSON.parse(sections);
 
@@ -50,7 +51,7 @@ app.post("/api/posts", upload.single("image"), async (req, res) => {
     const post = new Post({
       title,
       description,
-      image,
+      image: imagePath,
       tags,
       sections: sectionsParsed,
     });

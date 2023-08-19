@@ -13,6 +13,26 @@ const Blog = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery("(max-width:912px)");
   const isTablet = useMediaQuery("(max-width:1000px)");
+  const [loading, setLoading] = React.useState(false);
+  const [posts, setPosts] = React.useState([]);
+  const [headerPosts, setHeaderPosts] = React.useState([]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch("http://localhost:3001/api/posts");
+        const data = await response.json();
+        setPosts(data);
+        setHeaderPosts(data.slice(0, 4));
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -54,9 +74,9 @@ const Blog = () => {
               gap: "3vh",
             }}
           >
-            <Post isMobile size={"mobile"} />
-            <Post isMobile size={"mobile"} />
-            <Post isMobile size={"mobile"} />
+            <Post data={headerPosts[0]} isMobile size={"mobile"} />
+            <Post data={headerPosts[1]} isMobile size={"mobile"} />
+            <Post data={headerPosts[2]} isMobile size={"mobile"} />
           </Box>
         ) : isTablet ? (
           <Box
@@ -69,9 +89,9 @@ const Blog = () => {
               gap: "1.5vh",
             }}
           >
-            <Post size={"large"} />
-            <Post size={"large"} />
-            <Post size={"large"} />
+            <Post data={headerPosts[0]} size={"large"} />
+            <Post data={headerPosts[1]} size={"large"} />
+            <Post data={headerPosts[2]} size={"large"} />
           </Box>
         ) : (
           <Box
@@ -87,23 +107,27 @@ const Blog = () => {
           >
             <Post
               size={"medium"}
-              sx={{
-                width: "90vh",
-                // flex: 6,
-              }}
+             
+              data={headerPosts[0]}
             />
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                flex: 3,
+                // flex: 3,
                 gap: "3vh",
               }}
             >
-              <Post size={"small"} />
-              <Post size={"small"} />
+              <Post 
+                data={headerPosts[1]}
+               size={"small"} />
+              <Post
+              data={headerPosts[3]}
+               size={"small"} />
             </Box>
-            <Post size={"large"} />
+            <Post
+               data={headerPosts[2]}
+             size={"large"} />
           </Box>
         )}
       </Box>
@@ -134,19 +158,12 @@ const Blog = () => {
             gap: "3vh",
             alignItems: "flex-start",
             justifyContent: "flex-start",
-            alignItems: isTablet && "center",
+            // alignItems: isTablet && "center",
             justifyContent: isTablet && "center",
           }}
         >
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
+          {!loading &&
+            posts.map((post) => <Post data={post} isMobile size={"mobile"} />)}
         </Box>
         <Divider
           orientation="vertical"

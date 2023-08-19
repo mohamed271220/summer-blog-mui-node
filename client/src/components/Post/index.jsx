@@ -3,8 +3,16 @@ import React from "react";
 import Image from "./Image.png";
 import { ArrowRightAltSharp } from "@mui/icons-material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-const Post = ({ isMobile, size }) => {
+const Post = ({ data, isMobile, size }) => {
   const theme = useTheme();
+
+  const tagColors = {
+    // textColor , backgroundColor
+    0: ["#32a852", "#c8e0cd"],
+    1: ["#0400d9", "#dec5c7"],
+    2: ["#ff0026", "#c5c7de"],
+  };
+
   return (
     <Box
       sx={{
@@ -16,14 +24,14 @@ const Post = ({ isMobile, size }) => {
       }}
     >
       <img
-        src={Image}
+        src={`http://localhost:3001/assets/${data?.image}`}
         alt="logo"
         style={{
           width:
             size === "medium"
               ? "95vh"
               : size === "small"
-              ? "40vh"
+              ? "30vh"
               : size === "large"
               ? "80vh"
               : size === "large-X"
@@ -35,7 +43,7 @@ const Post = ({ isMobile, size }) => {
             size === "medium"
               ? "30vh"
               : size === "small"
-              ? "26vh"
+              ? "30vh"
               : size === "large"
               ? "30vh"
               : size === "large-X"
@@ -50,6 +58,7 @@ const Post = ({ isMobile, size }) => {
           display: "flex",
           flexDirection: "column",
           gap: "1vh",
+          width: size === "small" ? "30vh" : "fit-content",
         }}
       >
         <Typography
@@ -58,8 +67,7 @@ const Post = ({ isMobile, size }) => {
             color: "#6941C6",
           }}
         >
-          {" "}
-          Sunday , 1 Jan 2023
+          {data?.createdAt}
         </Typography>
         <Box
           sx={{
@@ -74,9 +82,13 @@ const Post = ({ isMobile, size }) => {
             sx={{
               fontWeight: "600",
               fontSize: "2.5vh",
+              maxWidth: "30ch",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "wrap",
             }}
           >
-            UX review presentations
+            {data?.title}
           </Typography>
           <TrendingUpIcon sx={{ fontSize: "2.5vh" }} />
         </Box>
@@ -85,10 +97,19 @@ const Post = ({ isMobile, size }) => {
           sx={{
             fontSize: "2vh",
             color: theme.palette.grey[500],
+            maxWidth: "95vh",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace:
+              isMobile ||
+              size === "large" ||
+              size === "large-X" ||
+              size === "medium"
+                ? "wrap"
+                : "nowrap",
           }}
         >
-          How do you create compelling presentations that wow your colleagues
-          and impress your managers?
+          {data?.description}
         </Typography>
         <Box
           sx={{
@@ -99,45 +120,21 @@ const Post = ({ isMobile, size }) => {
           }}
         >
           {/* some random color picker or backend color asigning */}
-          <Box
-            sx={{
-              fontSize: "1.4vh",
-              fontWeight:"600",
-              color: "green",
-              backgroundColor: "white",
-              opacity: "0.75",
-              padding: "0 1vh",
-              borderRadius: "12px",
-            }}
-          >
-            programming
-          </Box>
-          <Box
-            sx={{
-              fontSize: "1.4vh",
-              fontWeight:"600",
-              color: "green",
-              backgroundColor: "white",
-              opacity: "0.75",
-              padding: "0 1vh",
-              borderRadius: "12px",
-            }}
-          >
-            programming
-          </Box>
-          <Box
-            sx={{
-              fontSize: "1.4vh",
-              fontWeight:"600",
-              color: "green",
-              backgroundColor: "white",
-              opacity: "0.75",
-              padding: "0 1vh",
-              borderRadius: "12px",
-            }}
-          >
-            programming
-          </Box>
+          {data?.tags.map((tag, index) => (
+            <Box
+              sx={{
+                fontSize: "1.4vh",
+                fontWeight: "600",
+                color: tagColors[index][0],
+                backgroundColor: tagColors[index][1],
+                opacity: "0.75",
+                padding: "0 1vh",
+                borderRadius: "12px",
+              }}
+            >
+              {tag}
+            </Box>
+          ))}
         </Box>
       </Box>
     </Box>

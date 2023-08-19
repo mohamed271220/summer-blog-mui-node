@@ -52,13 +52,12 @@ const FormPage = () => {
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     const formData = new FormData();
- formData.append("title", values.title);
+    formData.append("title", values.title);
     formData.append("description", values.description);
-    
-    formData.append("tags", values.tags.join(","));
+    formData.append("tags", values.tags);
     formData.append("sections", JSON.stringify(values.sections));
-
-    formData.append("image", values.image.name);
+    formData.append("image", values.image);
+    formData.append("imagePath", values.image.name);
     try {
       const savedUserResponse = await fetch("http://localhost:3001/api/posts", {
         method: "POST",
@@ -205,6 +204,11 @@ const FormPage = () => {
                           color="secondary"
                           variant="outlined"
                           onClick={() => remove(index)}
+                          sx={{
+                            backgroundColor: palette.primary[100],
+                            color: palette.background.alt,
+                            "&:hover": { color: palette.primary[300] },
+                          }}
                         >
                           x
                         </Button>
@@ -214,6 +218,11 @@ const FormPage = () => {
                   <Button
                     type="button"
                     variant="outlined"
+                    sx={{
+                      backgroundColor: palette.primary[100],
+                      color: palette.background.alt,
+                      "&:hover": { color: palette.primary[300] },
+                    }}
                     onClick={() =>
                       push({ id: Math.random(), secTitle: "", paragraph: "" })
                     }
@@ -272,6 +281,11 @@ const FormPage = () => {
                           color="secondary"
                           variant="outlined"
                           onClick={() => remove(index)}
+                          sx={{
+                            backgroundColor: palette.primary[100],
+                            color: palette.background.alt,
+                            "&:hover": { color: palette.primary[300] },
+                          }}
                         >
                           x
                         </Button>
@@ -282,6 +296,11 @@ const FormPage = () => {
                     type="button"
                     variant="outlined"
                     onClick={() => push({ id: Math.random(), tags: "" })}
+                    sx={{
+                      backgroundColor: palette.primary[100],
+                      color: palette.background.alt,
+                      "&:hover": { color: palette.primary[300] },
+                    }}
                   >
                     Add
                   </Button>
@@ -291,7 +310,7 @@ const FormPage = () => {
 
             <Box
               gridColumn="span 4"
-              border={`1px solid ${palette.primary.main}`}
+              border={`1px solid ${palette.primary[200]}`}
               borderRadius="5px"
               p="1rem"
             >
@@ -306,7 +325,7 @@ const FormPage = () => {
                 {({ getRootProps, getInputProps }) => (
                   <Box
                     {...getRootProps()}
-                    border={`1px solid ${palette.primary.main}`}
+                    border={`1px solid ${palette.primary[200]}`}
                     sx={{ "&:hover": { cursor: "pointer" } }}
                   >
                     <input {...getInputProps()} />
@@ -323,19 +342,27 @@ const FormPage = () => {
               </Dropzone>
             </Box>
           </Box>
-          <Button
-            type="submit"
+          <Box
             sx={{
               m: "2rem auto",
-              p: "1rem",
+
               width: "15vh",
-              backgroundColor: palette.primary.main,
-              color: palette.background.alt,
-              "&:hover": { color: palette.primary.main },
             }}
           >
-            Post
-          </Button>
+            <Button
+              type="submit"
+              sx={{
+                m: "2rem auto",
+                p: "1rem",
+                width: "15vh",
+                backgroundColor: palette.primary[100],
+                color: palette.background.alt,
+                "&:hover": { color: palette.primary[300] },
+              }}
+            >
+              Post
+            </Button>
+          </Box>
         </form>
       )}
     </Formik>
