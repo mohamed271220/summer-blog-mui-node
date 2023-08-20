@@ -3,6 +3,7 @@ import React from "react";
 import Image from "./Image.png";
 import { ArrowRightAltSharp } from "@mui/icons-material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import { Link } from "react-router-dom";
 const Post = ({ data, isMobile, size }) => {
   const theme = useTheme();
 
@@ -23,36 +24,39 @@ const Post = ({ data, isMobile, size }) => {
         gap: "2vh",
       }}
     >
-      <img
-        src={`http://localhost:3001/assets/${data?.image}`}
-        alt="logo"
-        style={{
-          width:
-            size === "medium"
-              ? "95vh"
-              : size === "small"
-              ? "30vh"
-              : size === "large"
-              ? "80vh"
-              : size === "large-X"
-              ? "156vh"
-              : size === "mobile"
-              ? "50vh"
-              : "100px",
-          height:
-            size === "medium"
-              ? "30vh"
-              : size === "small"
-              ? "30vh"
-              : size === "large"
-              ? "30vh"
-              : size === "large-X"
-              ? "50vh"
-              : size === "mobile"
-              ? "40vh"
-              : "100px",
-        }}
-      />
+      <Link to={`/blog/${data?._id}`}>
+        <img
+          src={`http://localhost:3001/assets/${data?.image}`}
+          alt="logo"
+          style={{
+            width:
+              size === "medium"
+                ? "95vh"
+                : size === "small"
+                ? "30vh"
+                : size === "large"
+                ? "80vh"
+                : size === "large-X"
+                ? "156vh"
+                : size === "mobile"
+                ? "50vh"
+                : "100px",
+            height:
+              size === "medium"
+                ? "30vh"
+                : size === "small"
+                ? "26vh"
+                : size === "large"
+                ? "30vh"
+                : size === "large-X"
+                ? "50vh"
+                : size === "mobile"
+                ? "35vh"
+                : "100px",
+          }}
+        />
+      </Link>
+
       <Box
         sx={{
           display: "flex",
@@ -69,29 +73,35 @@ const Post = ({ data, isMobile, size }) => {
         >
           {data?.createdAt}
         </Typography>
-        <Box
-          sx={{
-            justifyContent: "space-between",
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "nowrap",
-          }}
-        >
-          <Typography
-            variant="h6"
+        <Link to={`/blog/${data?._id}`}>
+          <Box
             sx={{
-              fontWeight: "600",
-              fontSize: "2.5vh",
-              maxWidth: "30ch",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "wrap",
+              justifyContent: "space-between",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "nowrap",
             }}
           >
-            {data?.title}
-          </Typography>
-          <TrendingUpIcon sx={{ fontSize: "2.5vh" }} />
-        </Box>
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "600",
+                fontSize: "2.5vh",
+                maxWidth: "60ch",
+                color: theme.palette.primary[100],
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "wrap",
+              }}
+            >
+              {data?.title}
+            </Typography>
+            <TrendingUpIcon
+              sx={{ fontSize: "2.5vh", color: theme.palette.primary[100] }}
+            />
+          </Box>
+        </Link>
+
         <Typography
           variant="p"
           sx={{

@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Divider,
+  Pagination,
+  PaginationItem,
   Typography,
   useMediaQuery,
   useTheme,
@@ -13,13 +15,23 @@ const Blog = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery("(max-width:912px)");
   const isTablet = useMediaQuery("(max-width:1000px)");
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [posts, setPosts] = React.useState([]);
   const [headerPosts, setHeaderPosts] = React.useState([]);
+
+  // pagination control
+  const [page, setPage] = React.useState(1);
+  const postsPerPage = 6;
+  const lastIndex = page * postsPerPage;
+  const firstIndex = lastIndex - postsPerPage;
+  let paginatedPosts = 0;
+  let npage = 0;
+  let numbers = 0;
+
   React.useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
+        setLoading(true);
         const response = await fetch("http://localhost:3001/api/posts");
         const data = await response.json();
         setPosts(data);
@@ -32,6 +44,37 @@ const Blog = () => {
     };
     fetchData();
   }, []);
+
+  if (posts.length !== 0) {
+    paginatedPosts = posts.slice(firstIndex, lastIndex);
+    npage = Math.ceil(posts.length / postsPerPage);
+    numbers = [...Array(npage + 1).keys()].slice(1);
+  }
+
+  // pagination functions
+  const nextPage = () => {
+    if (page !== lastIndex) {
+      setPage((prev) => prev + 1);
+    }
+  };
+  const previousPage = () => {
+    if (page !== firstIndex) {
+      setPage((prev) => prev - 1);
+    }
+  };
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  // const useStyles = makeStyles((theme) => ({
+  //   root: {
+  //     "& .Mui-selected": {
+  //       width: "5vh",
+  //       height: "5h",
+  //     },
+  //   },
+  // }));
+  // const classes = useStyles();
 
   return (
     <Box
@@ -105,11 +148,7 @@ const Blog = () => {
               justifyContent: "flex-start",
             }}
           >
-            <Post
-              size={"medium"}
-             
-              data={headerPosts[0]}
-            />
+            <Post size={"medium"} data={headerPosts[1]} />
             <Box
               sx={{
                 display: "flex",
@@ -118,16 +157,10 @@ const Blog = () => {
                 gap: "3vh",
               }}
             >
-              <Post 
-                data={headerPosts[1]}
-               size={"small"} />
-              <Post
-              data={headerPosts[3]}
-               size={"small"} />
+              <Post data={headerPosts[0]} size={"small"} />
+              <Post data={headerPosts[3]} size={"small"} />
             </Box>
-            <Post
-               data={headerPosts[2]}
-             size={"large"} />
+            <Post data={headerPosts[2]} size={"large"} />
           </Box>
         )}
       </Box>
@@ -163,10 +196,12 @@ const Blog = () => {
           }}
         >
           {!loading &&
-            posts.map((post) => <Post data={post} isMobile size={"mobile"} />)}
+            paginatedPosts?.map((post) => (
+              <Post data={post} isMobile size={"mobile"} />
+            ))}
         </Box>
         <Divider
-          orientation="vertical"
+          orientation="horizontal"
           flexItem
           sx={{
             height: "100%",
@@ -190,10 +225,27 @@ const Blog = () => {
               fontSize: "2vh",
             }}
             variant="contained"
+            onClick={previousPage}
           >
             {" "}
             previous{" "}
           </Button>
+          <Box>
+            {numbers && (
+              <Pagination
+                hideNextButton
+                hidePrevButton
+                variant="outlined"
+                color="primary"
+                shape="rounded"
+                count={npage}
+                page={page}
+                onChange={handleChange}
+                
+                
+              />
+            )}
+          </Box>
 
           <Button
             sx={{
@@ -201,6 +253,7 @@ const Blog = () => {
               fontSize: "2vh",
             }}
             variant="contained"
+            onClick={nextPage}
           >
             {" "}
             next{" "}

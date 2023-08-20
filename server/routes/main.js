@@ -26,7 +26,6 @@ router.get("/posts/:id", async (req, res) => {
   }
 });
 
-
 router.put("/posts/:id", async (req, res) => {
   // ...
 });

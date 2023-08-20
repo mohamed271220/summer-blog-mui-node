@@ -13,6 +13,26 @@ const Projects = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery("(max-width:600px)");
   const isTablet = useMediaQuery("(max-width:900px)");
+  const [loading, setLoading] = React.useState(true);
+  const [posts, setPosts] = React.useState([]);
+  const [headerPosts, setHeaderPosts] = React.useState([]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("http://localhost:3001/api/posts");
+        const data = await response.json();
+        setPosts(data);
+        setHeaderPosts(data.slice(0, 4));
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -29,7 +49,7 @@ const Projects = () => {
           flexDirection: "column",
           alignItems: isTablet && "center",
           justifyContent: isTablet && "center",
-          
+
           width: "90%",
           gap: "1rem",
         }}
@@ -51,24 +71,23 @@ const Projects = () => {
             gap: "3vh",
             alignItems: "flex-start",
             justifyContent: "flex-start",
-            alignItems: isTablet && "center",
-            justifyContent: isTablet && "center",
+            // alignItems: isTablet && "center",
+            // justifyContent: isTablet && "center",
           }}
         >
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
+          <Post isMobile data={posts[0]} size={"mobile"} />
+          <Post isMobile data={posts[1]} size={"mobile"} />
+          <Post isMobile data={posts[2]} size={"mobile"} />
 
           <Post
             size={isTablet ? "mobile" : "large-X"}
             isMobile={isTablet}
-            sx={{
-              width: "100%",
-            }}
+            data={posts[3]}
+    
           />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
+          <Post isMobile data={posts[4]}  size={"mobile"} />
+          <Post isMobile data={posts[5]}  size={"mobile"} />
+          <Post isMobile data={posts[6]}  size={"mobile"} />
         </Box>
         <Divider
           orientation="vertical"
@@ -79,7 +98,6 @@ const Projects = () => {
             backgroundColor: "white",
           }}
         />
-       
       </Box>
     </Box>
   );

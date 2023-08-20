@@ -3,6 +3,26 @@ import React from "react";
 import Post from "../../components/Post";
 
 const NewsForm = () => {
+  const [loading, setLoading] = React.useState(true);
+  const [posts, setPosts] = React.useState([]);
+  const [headerPosts, setHeaderPosts] = React.useState([]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("http://localhost:3001/api/posts");
+        const data = await response.json();
+        setPosts(data);
+        setHeaderPosts(data.slice(0, 4));
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -47,12 +67,18 @@ const NewsForm = () => {
           sx={{
             display: "flex",
             flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
             gap: "2vh",
           }}
         >
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
-          <Post isMobile size={"mobile"} />
+          {!loading && (
+            <>
+              <Post isMobile data={posts[0]} size={"mobile"} />
+              <Post isMobile data={posts[1]} size={"mobile"} />
+              <Post isMobile data={posts[2]} size={"mobile"} />
+            </>
+          )}
         </Box>
       </Box>
     </Box>
