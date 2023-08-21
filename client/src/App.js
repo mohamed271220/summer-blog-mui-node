@@ -9,7 +9,7 @@ import Projects from "./scenes/Projects";
 import About from "./scenes/About";
 import NewsForm from "./scenes/Newsletter";
 import Add from "./scenes/Add/Add";
-import Post from "./components/Post";
+import Post from "./scenes/Post";
 function App() {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);

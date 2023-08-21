@@ -58,14 +58,17 @@ router.post("/projects", async (req, res) => {
 });
 
 router.post("/newsLetter", async (req, res) => {
+  const email = req.body.email;
+  console.log(email);
   try {
-    const { email } = req.body;
+    const val = email;
     const newEmail = new NewsLetter({
-      email,
+      email: val,
     });
     await newEmail.save();
     res.status(201).json({ newEmail });
   } catch (err) {
+    console.log(err);
     res.status(403).json({ message: err });
   }
 });

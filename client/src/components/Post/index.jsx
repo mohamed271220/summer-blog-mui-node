@@ -20,7 +20,8 @@ const Post = ({ data, isMobile, size }) => {
         display: "flex",
         justifyContent: "center",
         flexDirection: size === "small" || size === "large" ? "row" : "column",
-        width: isMobile ? "50vh" : "fit-content",
+        width: isMobile ? "40vh" : "fit-content",
+
         gap: "2vh",
       }}
     >
@@ -39,7 +40,7 @@ const Post = ({ data, isMobile, size }) => {
                 : size === "large-X"
                 ? "156vh"
                 : size === "mobile"
-                ? "50vh"
+                ? "40vh"
                 : "100px",
             height:
               size === "medium"
@@ -51,7 +52,7 @@ const Post = ({ data, isMobile, size }) => {
                 : size === "large-X"
                 ? "50vh"
                 : size === "mobile"
-                ? "35vh"
+                ? "30vh"
                 : "100px",
           }}
         />
